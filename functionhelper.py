@@ -132,7 +132,7 @@ def CombatSimulator(enemytype, playerhealth, combatmodifier):
     print("Enemy's HP:"+str(enemyhppool[enemytype]))
     print("Battling...\n")
 
-    playerhealth = randint(int((playerhealth + enemyhppool[enemytype])/2), gp.PLAYERMAXHP)
+    playerhealth = randint(int((playerhealth - enemyhppool[enemytype])), gp.PLAYERMAXHP)
 
     if(combatmodifier["sword"] == True):
         playerhealth += gp.SWORDMODIFIER
