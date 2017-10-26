@@ -1,6 +1,6 @@
 from enum import IntEnum
 # Maze Properties
-MAZESIZE = 50   # assumption is a square maze of the order MAZESIZE
+MAZESIZE = 10   # assumption is a square maze of the order MAZESIZE
 REDROOMFACTOR = 0.26
 GREENROOMFACTOR = 0.14
 BLACKROOMFACTOR = 0.06
@@ -31,6 +31,14 @@ class PuzzleType(IntEnum):
     PuzzleTypeEasy = 1
     PuzzleTypeMedium = 2
     PuzzleTypeHard = 3
+
+# item Properties
+SWORDMODIFIER = int(0.1 * MAZESIZE)
+ARMORMODIFIER = int(0.2 * MAZESIZE)
+class PlayerCollectable(IntEnum):
+    NoItem = 0
+    Armor = 1
+    Sword = 2
 
 
 

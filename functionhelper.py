@@ -112,8 +112,53 @@ def CreateRoomLayout(row, col):
 
     return(layout)
 
-def CombatSimulator(enemy,player,combatmodifier):
-    return enemy, player
+def CombatSimulator(enemytype, playerhealth, combatmodifier):
+    print("\n")
+    print("You come face to face with some sort of humanoid creature.")
+    print("You try to avoid it and head for one of the doors.")
+    print("The creature moves to block you every time you try.")
+    print("Looks like it's looking for a fight, you have no other choice")
+
+    if(combatmodifier["sword"] == True):
+        print("You unsheathe your sword")
+
+    print("Your HP:"+str(playerhealth))
+
+    enemyhppool = {gp.EnemyType.EnemyTypeZero: 0,
+                   gp.EnemyType.EnemyTypeGrunt: gp.ENEMYGRUNTHP,
+                   gp.EnemyType.EnemyTypeHenchmen: gp.ENEMYHENCHMENHP,
+                   gp.EnemyType.EnemyTypeBoss: gp.ENEMYBOSSHP}
+
+    print("Enemy's HP:"+str(enemyhppool[enemytype]))
+    print("Battling...\n")
+
+    playerhealth = randint(int((playerhealth + enemyhppool[enemytype])/2), gp.PLAYERMAXHP)
+
+    if(combatmodifier["sword"] == True):
+        playerhealth += gp.SWORDMODIFIER
+
+    if(combatmodifier["armor"] == True):
+        playerhealth += gp.ARMORMODIFIER
+
+    if(playerhealth < 0):
+        print("You fought hard but, were no match to the creature's strength and cunning.")
+
+    if(playerhealth > gp.PLAYERMAXHP):
+        playerhealth = gp.PLAYERMAXHP
+
+    if(playerhealth > (gp.PLAYERMAXHP * 0.9)):
+        print("You dispatch the enemy quickly and without much trouble")
+    elif((playerhealth < (gp.PLAYERMAXHP * 0.9) and playerhealth > (gp.PLAYERMAXHP * 0.6))):
+        print("The creature got in behind your guard and did some damage before you could strike the killing blow")
+    elif(playerhealth < (gp.PLAYERMAXHP * 0.6) and playerhealth > (gp.PLAYERMAXHP * 0.1)):
+        print("The creature did some serious damage and you are gravely wounded")
+    else:
+        print("This battle cost you heavily. You are hanging on by a thread")
+
+    print("Your HP:"+str(playerhealth))
+
+
+    return playerhealth
 
 def PlayerMovement(currentroom, layout):
 
