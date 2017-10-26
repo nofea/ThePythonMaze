@@ -1,4 +1,5 @@
-The Python Maze
+The Python Maze 
+Version: 0.1
 
 You need Python 3.5 or higher to run this
 
