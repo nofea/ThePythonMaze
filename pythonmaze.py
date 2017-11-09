@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
-import gameproperties as gp
-import functionhelper as fh
+from helpers import gameproperties as gp
+from helpers import functionhelper as fh
+from classfiles import maze
+from classfiles import enemy
+from classfiles import player
 
 print("Welcome to the MAZE")
 print("Now, let's see you get out")
-redrooms, greenrooms, blackrooms, mazeentry, mazeexit = fh.InitMaze()
+mz = maze.Maze()
+mz.rowcount = gp.MAZEROWCOUNT
+mz.colcount = gp.MAZECOLCOUNT
+ply = player.Player(characterHP=gp.PLAYERMAXHP, characterItemSword=False, characterItemArmour=False, characterItemHealthPotion=False)
+mazedatacontainer = {'redroomfactor': gp.REDROOMFACTOR, 'greenroomfactor': gp.GREENROOMFACTOR, 'blackroomfactor': gp.BLACKROOMFACTOR}
+redrooms, greenrooms, blackrooms, mazeentry, mazeexit = mz.InitMaze(mazedatacontainer)
+
 print("\n\n")
 currentroom = {'row': mazeentry.get('row'), 'col': mazeentry.get('col')}
-playerhealth = gp.PLAYERMAXHP
-combatmodifier = {'sword': True, 'armor': True}
+
 playerdeath = False
 while(currentroom is not mazeexit):
     print("You are in a room")
-    layout = fh.CreateRoomLayout(row=currentroom.get('row'), col=currentroom.get('col'))
+    layout = fh.CreateRoomLayout(row=currentroom.get('row'), col=currentroom.get('col'), rowcount=mz.rowcount, colcount=mz.colcount)
     if(currentroom.get('row') == mazeexit.get('row') and currentroom.get('col') == mazeexit.get('col')):
         print("You see the exit from this accursed maze. You run to it and you are finally out")
         print("Thank you for playing The Maze")
@@ -24,11 +32,14 @@ while(currentroom is not mazeexit):
         for red in redrooms:
             if(currentroom == red):
                 enemytype = fh.CreateRedRoom()
-                playerhealth = fh.CombatSimulator(enemytype=enemytype, playerhealth=playerhealth, combatmodifier=combatmodifier)
+                enmy = enemy.Enemy(characterHP=fh.EnemyHPFinder(enemytype), characterItemSword=False, characterItemArmour=False, characterItemHealthPotion=False, enemytype=enemytype)
+                fh.CombatSimulator(player=ply, enemy=enmy)
 
-                if(playerhealth < 0):
+                if(ply.characterHP <= 0):
                     playerdeath = True
                     break
+                else:
+                    del enmy
 
                 currentroom = fh.PlayerMovement(currentroom=currentroom, layout=layout)
                 found = True
