@@ -2,15 +2,15 @@ from helpers import gameproperties as gp
 from random import *
 
 
-def CreateRedRoom():
+def createredroom():
     enemytype = randint(gp.EnemyType.EnemyTypeGrunt, gp.EnemyType.EnemyTypeBoss)
     return enemytype
 
-def CreateGreenRoom(): # Make puzzles here
+def creategreenroom(): # Make puzzles here
     puzzle = randint(gp.PuzzleType.PuzzleTypeEasy, gp.PuzzleType.PuzzleTypeHard)
     return puzzle
 
-def CreateRoomLayout(row, col, rowcount, colcount):
+def createroomlayout(row, col, rowcount, colcount):
     layout = [True, True, True, True]
     if(row == 0):
         layout[gp.Direction.North] = False
@@ -26,19 +26,23 @@ def CreateRoomLayout(row, col, rowcount, colcount):
 
     return(layout)
 
-def CombatSimulator(player, enemy):
+def combatsimulator(player, enemy):
     print("\n")
     print("You come face to face with some sort of humanoid creature.")
     print("You try to avoid it and head for one of the doors.")
     print("The creature moves to block you every time you try.")
     print("Looks like it's itching for a fight, you have no other choice")
+    pressentertocontinue()
 
     if(player.characterItemSword == True):
         print("You unsheathe your sword")
+        pressentertocontinue()
 
     print("Your HP:"+str(player.characterHP))
     print("Enemy's HP:"+str(enemy.characterHP))
-    print("Battling...\n")  # add loading screen
+    pressentertocontinue()
+    print("Battling...\n")
+    pressentertocontinue()
 
     player.characterHP = randint(int((player.characterHP - enemy.characterHP)), gp.PLAYERMAXHP)
 
@@ -49,27 +53,34 @@ def CombatSimulator(player, enemy):
         player.characterHP += gp.ARMORMODIFIER
 
     if(player.characterHP < 0):
-        print("You fought hard but, were no match to the creature's strength and cunning.")
+        print("You fought hard but, were no match for the creature's strength and cunning.")
+        pressentertocontinue()
 
     if(player.characterHP > gp.PLAYERMAXHP):
         player.characterHP = gp.PLAYERMAXHP
 
     if(player.characterHP > (gp.PLAYERMAXHP * 0.9)):
         print("You dispatch the enemy quickly and without much trouble")
+        pressentertocontinue()
     elif((player.characterHP < (gp.PLAYERMAXHP * 0.9) and player.characterHP > (gp.PLAYERMAXHP * 0.6))):
         print("The creature got in behind your guard and did some damage before you could strike the killing blow")
+        pressentertocontinue()
     elif(player.characterHP < (gp.PLAYERMAXHP * 0.6) and player.characterHP > (gp.PLAYERMAXHP * 0.1)):
         print("The creature did some serious damage and you are gravely wounded")
+        pressentertocontinue()
     else:
         print("This battle cost you heavily. You are hanging on by a thread")
+        pressentertocontinue()
 
     print("Your HP:"+str(player.characterHP))
+    pressentertocontinue()
 
 
 
-def PlayerMovement(currentroom, layout):
+def playermovement(currentroom, layout):
 
     print("The room is empty")
+    pressentertocontinue()
     print("There are doors to the\n")
     option = 0
     choice = None
@@ -113,12 +124,18 @@ def PlayerMovement(currentroom, layout):
 
     return(currentroom)
 
-def EnemyHPFinder(enemytype):
-    enemyhppool = {gp.enemytype.EnemyTypeZero: gp.ENEMYGRUNTHP,
-                   gp.enemytype.EnemyTypeGrunt: gp.ENEMYHENCHMENHP,
-                   gp.enemytype.EnemyTypeBoss: gp.ENEMYBOSSHP}
+def enemyhpfinder(enemytype):
+    enemyhppool = {gp.EnemyType.EnemyTypeZero: gp.ENEMYGRUNTHP,
+                   gp.EnemyType.EnemyTypeGrunt: gp.ENEMYHENCHMENHP,
+                   gp.EnemyType.EnemyTypeBoss: gp.ENEMYBOSSHP}
 
     return enemyhppool.get(enemytype)
 
-def WriteConfig():
+def pressentertocontinue():
+    return input("Press Enter to continue...\n")
+
+def separator():
+    return print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+def writeconfig():
     return

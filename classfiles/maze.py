@@ -9,7 +9,7 @@ class Maze:
         self.rowcount = rowcount
         self.colcount = colcount
 
-    def InitMaze(self, mazedatacontainer):
+    def createmaze(self, mazedatacontainer):
         # read historic data from config file here and determine a factor of how the players skill. Failing this, just use a default value
 
         mazesize = self.rowcount * self.colcount

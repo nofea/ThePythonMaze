@@ -3,6 +3,7 @@ class Character:
     characterItemSword = False
     characterItemArmour = False
     characterItemHealthPotion = 0
+    currentroom = {'row': None, 'col': None}
 
     def __init__(self, characterHP, characterItemSword, characterItemArmour, characterItemHealthPotion):
         self.characterHP = characterHP
