@@ -11,7 +11,9 @@ fh.pressentertocontinue()
 mz = maze.Maze()
 mz.rowcount = gp.MAZEROWCOUNT
 mz.colcount = gp.MAZECOLCOUNT
-ply = player.Player(characterHP=gp.PLAYERMAXHP, characterItemSword=False, characterItemArmour=False, characterItemHealthPotion=False)
+
+playerItems = {gp.PlayerCollectable.Armor: False, gp.PlayerCollectable.Sword: False, gp.PlayerCollectable.HealthPortion: gp.PLAYERHEALTHPORTION}
+ply = player.Player(characterHP=gp.PLAYERMAXHP, characterItems=playerItems)
 mazedatacontainer = {'redroomfactor': gp.REDROOMFACTOR, 'greenroomfactor': gp.GREENROOMFACTOR, 'blackroomfactor': gp.BLACKROOMFACTOR}
 redrooms, greenrooms, blackrooms, mazeentry, mazeexit = mz.createmaze(mazedatacontainer)
 
@@ -35,8 +37,8 @@ while(ply.currentroom is not mazeexit):
         for red in redrooms:
             if(ply.currentroom == red):
                 enemytype = fh.createredroom()
-                enmy = enemy.Enemy(characterHP=fh.enemyhpfinder(enemytype=enemytype), characterItemSword=False,
-                                   characterItemArmour=False, characterItemHealthPotion=False)
+                enemyItems = {gp.PlayerCollectable.Armor: False, gp.PlayerCollectable.Sword: False, gp.PlayerCollectable.HealthPortion: 0}
+                enmy = enemy.Enemy(characterHP=fh.enemyhpfinder(enemytype=enemytype), characterItems=enemyItems)
                 enmy.enemytype = enemytype
                 fh.combatsimulator(player=ply, enemy=enmy)
 

@@ -12,9 +12,10 @@ class Direction(IntEnum):
     East = 2
     West = 3
 
-# Player Properties
+# Player Properties(defaults)
 PLAYFACTORDEFAULT = 1   # this would be some sort a difficulty factor later on
 PLAYERMAXHP = 100
+PLAYERHEALTHPORTION = 0
 
 # Enemy Properties
 ENEMYGRUNTHP = 10
@@ -43,6 +44,7 @@ class PlayerCollectable(IntEnum):
     NoItem = 0
     Armor = 1
     Sword = 2
+    HealthPortion = 3
 
 
 

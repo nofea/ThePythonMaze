@@ -34,7 +34,7 @@ def combatsimulator(player, enemy):
     print("Looks like it's itching for a fight, you have no other choice")
     pressentertocontinue()
 
-    if(player.characterItemSword == True):
+    if(player.characterItems[gp.PlayerCollectable.Sword] == True):
         print("You unsheathe your sword")
         pressentertocontinue()
 
